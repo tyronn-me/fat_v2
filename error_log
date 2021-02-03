@@ -1,0 +1,55 @@
+[18-Dec-2020 23:52:32 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to undefined function language_attributes() in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php:12
+Stack trace:
+#0 /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/index.php(3): include()
+#1 {main}
+  thrown in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php on line 12
+[22-Dec-2020 17:45:26 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to undefined function language_attributes() in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php:12
+Stack trace:
+#0 /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/index.php(3): include()
+#1 {main}
+  thrown in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php on line 12
+[29-Dec-2020 19:01:43 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to undefined function language_attributes() in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php:12
+Stack trace:
+#0 /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/index.php(3): include()
+#1 {main}
+  thrown in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php on line 12
+[01-Jan-2021 01:29:09 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to undefined function language_attributes() in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php:12
+Stack trace:
+#0 /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/index.php(3): include()
+#1 {main}
+  thrown in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php on line 12
+[08-Jan-2021 06:53:45 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to undefined function language_attributes() in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php:12
+Stack trace:
+#0 /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/index.php(3): include()
+#1 {main}
+  thrown in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php on line 12
+[08-Jan-2021 13:27:41 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to undefined function language_attributes() in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php:12
+Stack trace:
+#0 /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/index.php(3): include()
+#1 {main}
+  thrown in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php on line 12
+[13-Jan-2021 18:41:54 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to undefined function language_attributes() in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php:12
+Stack trace:
+#0 /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/index.php(3): include()
+#1 {main}
+  thrown in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php on line 12
+[17-Jan-2021 13:01:26 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to undefined function language_attributes() in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php:12
+Stack trace:
+#0 /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/index.php(3): include()
+#1 {main}
+  thrown in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php on line 12
+[17-Jan-2021 16:13:15 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to undefined function language_attributes() in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php:12
+Stack trace:
+#0 /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/index.php(3): include()
+#1 {main}
+  thrown in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php on line 12
+[19-Jan-2021 08:11:33 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to undefined function language_attributes() in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php:12
+Stack trace:
+#0 /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/index.php(3): include()
+#1 {main}
+  thrown in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php on line 12
+[20-Jan-2021 01:32:39 America/Los_Angeles] PHP Fatal error:  Uncaught Error: Call to undefined function language_attributes() in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php:12
+Stack trace:
+#0 /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/index.php(3): include()
+#1 {main}
+  thrown in /home/tyronhayman01/public_html/freshairtraining.ca/wp-content/themes/freshairtraining/header.php on line 12
