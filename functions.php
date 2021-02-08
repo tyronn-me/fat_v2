@@ -19,13 +19,27 @@ function fresh_scripts() {
 	wp_enqueue_script( 'plugin-bundler', 'https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js', array('jquery'), '1.0.0', true );
 	wp_enqueue_script( 'plugin-popper', 'https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js', array('jquery'), '1.0.0', true );
 	wp_enqueue_script( 'plugin-bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js', array('jquery'), '1.0.0', true );
-	wp_enqueue_script( 'plugin-babel', 'https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js' );
+
+	wp_enqueue_script( 'react', 'https://unpkg.com/react@17/umd/react.development.js', array(), null);
+	wp_enqueue_script( 'react-dom', 'https://unpkg.com/react-dom@17/umd/react-dom.development.js', array( 'react' ), null );
+	wp_enqueue_script( 'babel', 'https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js', array(), null);
+
 	// Main
 	wp_enqueue_script( 'plugin-script', get_template_directory_uri() . '/js/plugins.js', array('jquery'), '1.0.0', true );
-	wp_enqueue_script( 'main-script', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0', true );
+	wp_enqueue_script( 'jsx', get_template_directory_uri() . '/js/scripts.js', array('react', 'react-dom', 'babel'), true );
 }
 
 add_action( 'wp_enqueue_scripts', 'fresh_scripts' );
+
+function md_modify_jsx_tag( $tag, $handle, $src ) {
+  // Check that this is output of JSX file
+  if ( 'jsx' == $handle ) {
+    $tag = str_replace( "<script type='text/javascript'", "<script type='text/babel'", $tag );
+  }
+
+  return $tag;
+}
+add_filter( 'script_loader_tag', 'md_modify_jsx_tag', 10, 3 );
 
 /* Custom admin page */
 

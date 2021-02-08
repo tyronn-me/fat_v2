@@ -1,97 +1,61 @@
-(function($) {
+let appContainer = document.getElementById("appContainer");
 
-	let win = $(window);
-	let doc = $(document);
+class Init extends React.Component {
 
-	doc.ready(function() {
+	constructor(props) {
+    super(props);
+    this.state = {
+			boxes : null
+		};
+  }
 
-		$.ajax({
-		    url: ajaxurl,
-				data : { action : "get_fat_info" },
-		    type: 'POST',
-		    success: function(res) {
+	componentDidMount() {
 
-						let obj = JSON.parse(res);
-						let targetDiv = $("#classRow");
-						let classArr = [];
+		var request = new XMLHttpRequest();
+		let $this = this;
+		let boxes = [];
 
-						console.log(obj.data);
+		request.open("POST", ajaxurl + "?action=get_fat_info");
 
-						$.each(obj.data, function(i, item) {
+		request.onreadystatechange = function() {
 
-							if ($.inArray(item.attributes["title"], classArr ) == -1) {
-								classArr.push(item.attributes["title"]);
+        if(this.readyState === 4 && this.status === 200) {
 
-								let div = $('<div class="col-lg-4"><div class="card shadow-lg bg-white rounded"><div class="cardBG"></div><div class="card-body"><h5 class="h1">' + item.attributes["title"]  + '</h2><p class="card-text">' + item.attributes["details"]  + '</p><a href="https://bookwhen.com/fat" target="_blank" class="btn btn-primary">Book Now</a></div></div></div>')
-								targetDiv.append(div);
+						let res = JSON.parse(this.responseText);
+						let obj = res.data;
+						let boxArrCheck = [];
+						let objL = obj.length;
+
+						for(var i = 0; i < objL; i++) {
+							console.log(obj[i].attributes["title"]);
+							if ( boxArrCheck.indexOf(obj[i].attributes["title"]) == -1 ) {
+								boxArrCheck.push(obj[i].attributes["title"]);
+								boxes.push(obj[i].attributes["title"]);
 							}
+						}
 
-						});
-		    }
+						$this.setState({boxes : boxes});
+        }
+
+
+    };
+
+		request.send();
+
+	}
+
+	render() {
+		const divs = (this.state.boxes || []).map((box) => {
+			return <div className="classCol"><h1 className="display-4">{box}</h1></div>
 		});
+		console.log(divs);
+		return(
+			<div className="row" id="appRow">
+			{divs}
+			</div>
+		)
+	}
 
-	});
+}
 
-	win.on("load", function() {
-
-		$('.carousel').carousel();
-		$('.prevBtn').on("click", function() {
-			$('.carousel').carousel('prev');
-			return false;
-		});
-		$('.nextBtn').on("click", function() {
-			$('.carousel').carousel('next');
-			return false;
-		});
-
-		$("#mainVideo").on("click", function() {
-			let video = $("#mainVideo");
-
-			if ( video.hasClass("isPlaying") ) {
-				video.removeClass("isPlaying");
-				video.get(0).pause();
-			} else {
-				video.addClass("isPlaying");
-				video.get(0).play();
-			}
-		});
-
-		setTimeout(function() {
-			$('.siteLoaderImg').addClass("zoomFade");
-		}, 500);
-
-		setTimeout(function() {
-			$('.siteLoader').fadeOut();
-		}, 1000);
-
-	});
-
-	win.on("scroll", function() {
-
-		if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-		  // true for mobile device
-		}else{
-
-/*
-		var scrollTop = win.scrollTop();
-
-		$('.imageBorder').css({
-			top :  "-" + scrollTop / 5 + "px"
-		});
-
-		$('#mainImage').css({
-			top :  scrollTop / 10 + "px",
-			opacity : 1 - ( scrollTop / 1100 )
-		});
-
-		$('#paint').css({
-			top :  "-" + scrollTop / 5 + "px"
-		});
-*/
-
-		  // false for not mobile device
-		}
-
-	});
-
-})(jQuery);
+ReactDOM.render(<Init/>, appContainer);

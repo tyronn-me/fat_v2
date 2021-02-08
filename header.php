@@ -39,7 +39,7 @@
 
 </script>
 <body class="loading">
-	<div class="container" id="main-menu-wrapper">
+	<div class="container-fluid" id="main-menu-wrapper">
 		<nav class="navbar navbar-light">
 		  <a class="navbar-brand" href="#">
 		    <img src="<?php bloginfo("template_directory"); ?>/images/logo2.png" class="d-inline-block align-top" alt="" loading="lazy">
