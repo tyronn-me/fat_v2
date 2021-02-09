@@ -93,10 +93,10 @@ class Landing extends React.Component {
 
 	}
 
-	hoverState(event) {
+	hoverState(e) {
 		console.log("hovered");
 		let boxes = document.getElementsByClassName("classCol");
-		let elemIndex = this.getElementIndex(event.target.parentNode);
+		let elemIndex = this.getElementIndex(e.target);
 
 		console.log(elemIndex);
 
@@ -118,7 +118,7 @@ class Landing extends React.Component {
 
 	render() {
 		const divs = (this.state.boxes || []).map((box) => {
-			return <div className="classCol" onMouseEnter={this.hoverState}><div className="innerClassCol"><h3 className="h1">{box.number}</h3><div className="boxText"><h2 className="display-4">{box.title}</h2><p>{box.details}</p></div></div></div>
+			return <div className="classCol" onMouseEnter={this.hoverState}><div className="innerClassCol"><h3 className="h1">{box.number}</h3><div className="boxText"><h2 className="display-4">{box.title}</h2><p>{box.details}</p><a href="" className="btn btn-outline-warning">Book a class now</a></div></div></div>
 		});
 		console.log(divs);
 		return(

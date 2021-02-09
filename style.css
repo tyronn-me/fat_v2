@@ -45,13 +45,15 @@ h1, h2, h3, h4, h5, h6 {
 
 .classCol {
 	float: left;
+	display: block;
 	transition: all 0.5s;
 	-webkit-transition: all 0.5s;
 	-o-transition: all 0.5s;
 	-moz-transition: all 0.5s;
 }
 
-.classCol h2, .classCol h3, .classCol p {
+.classCol h2, .classCol h3, .classCol p, .classCol .boxText {
+	opacity: 1;
 	transition: all 0.5s;
 	-webkit-transition: all 0.5s;
 	-o-transition: all 0.5s;
@@ -83,12 +85,24 @@ h1, h2, h3, h4, h5, h6 {
 	width: 60%;
 }
 
+.classCol.active .boxText {
+	display: block;
+}
+
 .classCol.active h2, .classCol.active a, .classCol.active p {
 	opacity: 1;
+	transition-delay: 0.5s;
+	-webkit-transition-delay: 0.5s;
+	-moz-transition-delay: 0.5s;
+	-o-transition-delay: 0.5s;
 }
 
 .classCol.not_active {
 	width: 10%;
+}
+
+.classCol.not_active .boxText {
+	display: none;
 }
 
 .classCol.not_active h2, .classCol.not_active a, .classCol.not_active p {
