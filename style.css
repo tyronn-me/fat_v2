@@ -18,7 +18,9 @@ Tags: modern, clean, minimal
 }
 
 body {
-	background: #f7f7f7;
+	background: #41295a;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #2F0743, #41295a);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #2F0743, #41295a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 	font-family: 'Open Sans', sans-serif;
 }
 
@@ -37,4 +39,58 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-brand span {
 	vertical-align: middle;
 	display: inline-block;
+}
+
+/* Landing */
+
+.classCol {
+	float: left;
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+}
+
+.classCol h2, .classCol h3, .classCol p {
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+}
+
+.classCol h2 {
+	color: #ffffff;
+	margin-bottom: 30px;
+}
+
+.classCol h3 {
+	color: rgba(255,255,255,0.5);
+	margin-bottom: 0;
+}
+
+.classCol p {
+	color: rgba(255,255,255,0.7);
+	margin-bottom: 30px;
+	font-size: 1.2em;
+	line-height: 1.6em;
+}
+
+.innerClassCol {
+	padding: 0% 5%;
+}
+
+.classCol.active {
+	width: 60%;
+}
+
+.classCol.active h2, .classCol.active a, .classCol.active p {
+	opacity: 1;
+}
+
+.classCol.not_active {
+	width: 10%;
+}
+
+.classCol.not_active h2, .classCol.not_active a, .classCol.not_active p {
+	opacity: 0;
 }
