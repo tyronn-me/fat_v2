@@ -5,27 +5,126 @@ class Init extends React.Component {
 	constructor(props) {
     super(props);
 		this.state = {
-			page : "landing"
+			page : 9,
+			menuItems : null
 		}
+
+		this.clickHandler = this.clickHandler.bind(this);
   }
 
 	componentDidMount() {
 
+		var request = new XMLHttpRequest();
+		let $this = this;
+		let menuItems = [];
+
+		request.open("POST", ajaxurl + "?action=create_menu", true);
+
+		request.onreadystatechange = function() {
+
+        if(this.readyState === 4 && this.status === 200) {
+
+					let res = JSON.parse(this.responseText);
+					let obj = res;
+					let objL = obj.length;
+					let menuItems = [];
+
+					console.log(obj);
+
+					for(var i = 0; i < objL; i++) {
+							menuItems.push({
+								id : obj[i].id,
+								title : obj[i].title
+							});
+					}
+
+					$this.setState({menuItems : menuItems});
+
+        }
+
+
+    };
+
+		request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		request.send();
+
+	}
+
+	clickHandler(e) {
+		let page = e.target.getAttribute("data-pageid");
+		this.setState({ page : page });
+		console.log(page);
 	}
 
 	render() {
-		if ( this.state.page == "landing" ) {
+			const menu = (this.state.menuItems || []).map((item) => {
+				return <li className="nav-item"><a className="nav-link" href="#" data-pageid={item.id} onClick={this.clickHandler}>{item.title}</a></li>
+			});
 			return(
 				<div className="container-fluid" id="appRow">
-					<Landing />
+					<nav className="navbar navbar-light">
+						<a className="navbar-brand" href="#">
+							<img src={THEMEURL + "/images/logo2.png"} className="d-inline-block align-top" alt="" loading="lazy" />
+						</a>
+						<ul class="nav justify-content-end">
+						{menu}
+						</ul>
+					</nav>
+					<PageContent pageid={this.state.page}/>
 				</div>
 			)
-		}
 	}
 
 }
 
-class Landing extends React.Component {
+
+class PageContent extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			page : "Home"
+		};
+	}
+
+	componentDidMount() {
+
+		var request = new XMLHttpRequest();
+		let $this = this;
+		let boxes = [];
+
+		request.open("POST", ajaxurl + "?action=get_page_info", true);
+
+		request.onreadystatechange = function() {
+
+        if(this.readyState === 4 && this.status === 200) {
+
+						let res = JSON.parse(this.responseText);
+						console.log(res);
+
+        }
+
+
+    };
+
+		request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		request.send('post_id='+ this.props.pageid);
+
+	}
+
+	render() {
+		return(
+			<div className="row">
+				<div className="col-md" id="pageContent">
+
+				</div>
+			</div>
+		);
+	}
+
+}
+
+class ClassBoxes extends React.Component {
 
 	constructor(props) {
     super(props);
@@ -122,7 +221,7 @@ class Landing extends React.Component {
 		});
 		console.log(divs);
 		return(
-			<div className="row" id="appRow">
+			<div className="col-md" id="appRow">
 			{divs}
 			</div>
 		)

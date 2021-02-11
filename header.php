@@ -39,32 +39,3 @@
 
 </script>
 <body class="loading">
-	<div class="container-fluid" id="main-menu-wrapper">
-		<nav class="navbar navbar-light">
-		  <a class="navbar-brand" href="#">
-		    <img src="<?php bloginfo("template_directory"); ?>/images/logo2.png" class="d-inline-block align-top" alt="" loading="lazy">
-		  </a>
-
-			<ul class="nav justify-content-end">
-				<?php
-				$menuLocations = get_nav_menu_locations();
-				$menuID = $menuLocations['primary'];
-				$primaryNav = wp_get_nav_menu_items($menuID);
-
-				foreach ( $primaryNav as $navItem ) {
-
-					$currectURL = get_permalink();
-
-					if ( $navItem->url == $currectURL ) {
-						$activeClass = "active";
-					} else {
-						$activeClass = "";
-					}
-
-			    	echo '<li class="nav-item ' . $activeClass . '"><a class="nav-link" href="#">' . $navItem->title . '</a></li>';
-
-				}
-				?>
-			</ul>
-		</nav>
-	</div><!-- container -->

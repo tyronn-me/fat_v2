@@ -77,7 +77,7 @@ function create_menu() {
 
 	foreach ( $primaryNav as $navItem ) {
 
-    	$menuArr[] = array("Title" => $navItem->title);
+    	$menuArr[] = array("id" => $navItem->ID, "title" => $navItem->title);
 
 	}
 
@@ -85,7 +85,7 @@ function create_menu() {
 	die();
 
 }
-
+// Bookwhen API integration
 add_action("wp_ajax_get_fat_info", "get_fat_info");
 add_action("wp_ajax_nopriv_get_fat_info", "get_fat_info");
 
@@ -109,5 +109,30 @@ function get_fat_info() {
 	die();
 }
 
+// Get page info by slug for presentation to the front end
+add_action("wp_ajax_get_page_info", "get_page_info");
+add_action("wp_ajax_nopriv_get_page_infoo", "get_page_info");
+
+function get_page_info() {
+	global $post;
+
+	$id = $_POST['post_id'];
+
+	if ( !$id ) {
+		$id = get_option('page_on_front');
+	}
+
+	$post = get_post($id, ARRAY_A );
+
+	if ( $id ) {
+    $pageArr = Array("pageTitle" => $post['post_title'], "pageContent" => strip_tags(apply_filters( 'the_content', $post['post_content'] )));
+		echo json_encode($pageArr);
+	} else {
+		$pageArr = Array("pageTitle" => "ID not provided");
+		echo json_encode($pageArr);
+	}
+
+	die();
+}
 
 ?>
