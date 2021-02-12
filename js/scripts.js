@@ -5,7 +5,7 @@ class Init extends React.Component {
 	constructor(props) {
     super(props);
 		this.state = {
-			page : 9,
+			pages : null,
 			menuItems : null
 		}
 
@@ -48,11 +48,41 @@ class Init extends React.Component {
 		request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		request.send();
 
+		this.getPageContent();
+	}
+
+	getPageContent() {
+
+		var request = new XMLHttpRequest();
+		let $this = this;
+		let boxes = [];
+
+		request.open("POST", ajaxurl + "?action=get_page_info", true);
+
+		request.onreadystatechange = function() {
+
+        if(this.readyState === 4 && this.status === 200) {
+
+						let res = JSON.parse(this.responseText);
+						console.log(res);
+
+						$this.setState({ pages : res });
+
+						console.log($this.state.pages);
+
+        }
+
+
+    };
+
+		request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		request.send();
+
 	}
 
 	clickHandler(e) {
 		let page = e.target.getAttribute("data-pageid");
-		this.setState({ page : page });
+		// this.setState({ page : page }, this.forceUpdate);
 		console.log(page);
 	}
 
@@ -70,7 +100,7 @@ class Init extends React.Component {
 						{menu}
 						</ul>
 					</nav>
-					<PageContent pageid={this.state.page}/>
+					<PageContent />
 				</div>
 			)
 	}
@@ -83,40 +113,23 @@ class PageContent extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			page : "Home"
+			page : null,
+			title : null,
+			content : null
 		};
 	}
 
-	componentDidMount() {
-
-		var request = new XMLHttpRequest();
+	componentWillReceiveProps(props) {
 		let $this = this;
-		let boxes = [];
-
-		request.open("POST", ajaxurl + "?action=get_page_info", true);
-
-		request.onreadystatechange = function() {
-
-        if(this.readyState === 4 && this.status === 200) {
-
-						let res = JSON.parse(this.responseText);
-						console.log(res);
-
-        }
-
-
-    };
-
-		request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		request.send('post_id='+ this.props.pageid);
-
+		this.setState({ page : this.props.pageid }, $this.getPageContent);
 	}
 
 	render() {
 		return(
 			<div className="row">
 				<div className="col-md" id="pageContent">
-
+					<h2 className="display-4">{this.state.page}</h2>
+					<p className="">{this.state.content}</p>
 				</div>
 			</div>
 		);

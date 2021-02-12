@@ -76,8 +76,8 @@ function create_menu() {
 	$primaryNav = wp_get_nav_menu_items($menuID);
 
 	foreach ( $primaryNav as $navItem ) {
-
-    	$menuArr[] = array("id" => $navItem->ID, "title" => $navItem->title);
+			$pageID = get_post_meta( $navItem->ID, '_menu_item_object_id', true );
+    	$menuArr[] = array("id" => $pageID, "title" => $navItem->title);
 
 	}
 
@@ -116,21 +116,18 @@ add_action("wp_ajax_nopriv_get_page_infoo", "get_page_info");
 function get_page_info() {
 	global $post;
 
-	$id = $_POST['post_id'];
+	$pages = get_pages();
+	$pageArr = Array();
 
-	if ( !$id ) {
-		$id = get_option('page_on_front');
-	}
+	foreach ( $pages as $page ) {
 
-	$post = get_post($id, ARRAY_A );
+		$getcontent = $page->post_content;
+		$content = apply_filters( 'the_content', $getcontent );
+		$pageArr[] = Array("title" => $page->post_title, "content" => $content);
 
-	if ( $id ) {
-    $pageArr = Array("pageTitle" => $post['post_title'], "pageContent" => strip_tags(apply_filters( 'the_content', $post['post_content'] )));
-		echo json_encode($pageArr);
-	} else {
-		$pageArr = Array("pageTitle" => "ID not provided");
-		echo json_encode($pageArr);
-	}
+  }
+
+	echo json_encode($pageArr);
 
 	die();
 }

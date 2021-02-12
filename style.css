@@ -27,6 +27,13 @@ body {
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'Anton', sans-serif;
 	font-weight: 900!important;
+	color: #ffffff;
+}
+
+p {
+	color: rgba(255,255,255,0.6);
+	font-size: 1.1em;
+	line-height: 1.7em;
 }
 
 /* global */
