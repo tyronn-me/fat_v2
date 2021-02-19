@@ -1,6 +1,7 @@
 <?php
 register_nav_menu( 'primary', 'Main Menu' );
 show_admin_bar(false);
+add_theme_support( 'post-thumbnails' );
 
 /**
 * 	Works in WordPress 4.1 or later.
@@ -14,6 +15,7 @@ if ( version_compare( $GLOBALS['wp_version'], '5.5', '<' ) ) {
  */
 function fresh_scripts() {
 	wp_enqueue_style( 'style-reset', get_template_directory_uri() . '/css/reset.css' );
+	wp_enqueue_style( 'style-animate', "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" );
 	wp_enqueue_style( 'style-main', get_stylesheet_uri() );
 	// Boot strap
 	wp_enqueue_script( 'plugin-bundler', 'https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js', array('jquery'), '1.0.0', true );
@@ -40,6 +42,46 @@ function md_modify_jsx_tag( $tag, $handle, $src ) {
   return $tag;
 }
 add_filter( 'script_loader_tag', 'md_modify_jsx_tag', 10, 3 );
+
+/* Add custom meta box for templates */
+
+function fat_template_id_custom_box() {
+    $screens = array( 'post', 'page' );
+    foreach ( $screens as $screen ) {
+        add_meta_box(
+            'fat_template_id',                 // Unique ID
+            'Page Template',      // Box title
+            'fat_template_box_html',  // Content callback, must be of type callable
+            $screen,                            // Post type
+						'side',
+						'high'
+        );
+    }
+}
+add_action( 'add_meta_boxes', 'fat_template_id_custom_box' );
+
+function fat_template_box_html( $post ) {
+		$value = get_post_meta( $post->ID, '_fat_template_meta_key', true );
+    ?>
+    <label for="fat_template_field">Choose a page template</label>
+    <select name="fat_template_field" id="fat_template_field" class="postform">
+        <option value="default" <?php selected( $value, 'default' ); ?>>Home</option>
+        <option value="about" <?php selected( $value, 'about' ); ?>>About</option>
+        <option value="classes" <?php selected( $value, 'classes' ); ?>>Classes</option>
+    </select>
+    <?php
+}
+
+function fat_template_save_postdata( $post_id ) {
+    if ( array_key_exists( 'fat_template_field', $_POST ) ) {
+        update_post_meta(
+            $post_id,
+            '_fat_template_meta_key',
+            $_POST['fat_template_field']
+        );
+    }
+}
+add_action( 'save_post', 'fat_template_save_postdata' );
 
 /* Custom admin page */
 
@@ -116,16 +158,23 @@ add_action("wp_ajax_nopriv_get_page_infoo", "get_page_info");
 function get_page_info() {
 	global $post;
 
-	$pages = get_pages();
+	if ( !isset($_POST["pageid"]) || $_POST["pageid"] == "" ) {
+		$postid = get_option( 'page_on_front' );
+	} else {
+		$postid = $_POST['pageid'];
+	}
+
+	$post = get_post($postid);
 	$pageArr = Array();
 
-	foreach ( $pages as $page ) {
+	$template = get_post_custom_values( '_fat_template_meta_key', $postid);
 
-		$getcontent = $page->post_content;
-		$content = apply_filters( 'the_content', $getcontent );
-		$pageArr[] = Array("title" => $page->post_title, "content" => $content);
+	$post_title = $post->post_title;
+	$post_content = $post->post_content;
+	$featured_img_url = get_the_post_thumbnail_url($postid,'full');
+	$content = apply_filters( 'the_content', $post_content );
+	$pageArr[] = Array("title" => $post_title, "content" => $content, "image" => $featured_img_url, "id" => $postid, "template" => $template[0]);
 
-  }
 
 	echo json_encode($pageArr);
 
